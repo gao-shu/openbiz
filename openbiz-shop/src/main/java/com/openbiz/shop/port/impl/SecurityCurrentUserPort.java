@@ -5,7 +5,7 @@ import com.openbiz.shop.port.CurrentUserPort;
 import com.ruoyi.common.exception.ServiceException;
 import com.ruoyi.common.utils.SecurityUtils;
 
-@Component
+@Component("shopSecurityCurrentUserPort")
 public class SecurityCurrentUserPort implements CurrentUserPort
 {
     @Override
