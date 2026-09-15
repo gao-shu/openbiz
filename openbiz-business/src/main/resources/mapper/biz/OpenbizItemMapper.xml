@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openbiz.biz.mapper.OpenbizItemMapper">
+    <resultMap id="I" type="com.openbiz.biz.domain.OpenbizItem">
+        <id property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="itemCode" column="item_code"/>
+        <result property="itemName" column="item_name"/>
+        <result property="itemType" column="item_type"/>
+        <result property="price" column="price"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <select id="selectByIdAndTenant" resultMap="I">
+        SELECT id, tenant_id, item_code, item_name, item_type, price, status, create_time, update_time
+        FROM openbiz_item WHERE id = #{id} AND tenant_id = #{tenantId} LIMIT 1
+    </select>
+    <select id="selectByCodeAndTenant" resultMap="I">
+        SELECT id, tenant_id, item_code, item_name, item_type, price, status, create_time, update_time
+        FROM openbiz_item WHERE item_code = #{itemCode} AND tenant_id = #{tenantId} LIMIT 1
+    </select>
+</mapper>

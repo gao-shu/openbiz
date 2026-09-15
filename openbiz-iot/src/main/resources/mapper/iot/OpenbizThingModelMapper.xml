@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openbiz.iot.core.mapper.OpenbizThingModelMapper">
+    <resultMap id="ThingModelResult" type="com.openbiz.iot.core.domain.OpenbizThingModel">
+        <id property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="modelJson" column="model_json"/>
+        <result property="version" column="version"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO openbiz_thing_model (tenant_id, product_id, model_json, version, status, create_time, update_time)
+        VALUES (#{tenantId}, #{productId}, #{modelJson}, #{version}, #{status}, #{createTime}, #{updateTime})
+    </insert>
+
+    <select id="selectByProductAndTenant" resultMap="ThingModelResult">
+        SELECT id, tenant_id, product_id, model_json, version, status, create_time, update_time
+        FROM openbiz_thing_model WHERE product_id = #{productId} AND tenant_id = #{tenantId}
+    </select>
+
+    <select id="selectByIdAndTenant" resultMap="ThingModelResult">
+        SELECT id, tenant_id, product_id, model_json, version, status, create_time, update_time
+        FROM openbiz_thing_model WHERE id = #{id} AND tenant_id = #{tenantId}
+    </select>
+</mapper>

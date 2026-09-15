@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openbiz.mes.mapper.OpenbizMesWorkOrderMapper">
+
+    <resultMap id="WoResult" type="com.openbiz.mes.domain.OpenbizMesWorkOrder">
+        <id     property="id"          column="id"/>
+        <result property="tenantId"    column="tenant_id"/>
+        <result property="workOrderNo" column="work_order_no"/>
+        <result property="materialId"  column="material_id"/>
+        <result property="bomId"       column="bom_id"/>
+        <result property="quantity"    column="quantity"/>
+        <result property="status"      column="status"/>
+        <result property="deviceId"    column="device_id"/>
+        <result property="createTime"  column="create_time"/>
+        <result property="updateTime"  column="update_time"/>
+    </resultMap>
+
+    <select id="selectByIdAndTenant" resultMap="WoResult">
+        SELECT id, tenant_id, work_order_no, material_id, bom_id, quantity, status, device_id, create_time, update_time
+        FROM openbiz_mes_work_order
+        WHERE id = #{id} AND tenant_id = #{tenantId}
+        LIMIT 1
+    </select>
+
+    <update id="updateStatus">
+        UPDATE openbiz_mes_work_order
+        SET status = #{status}, update_time = NOW()
+        WHERE id = #{id} AND tenant_id = #{tenantId}
+    </update>
+
+</mapper>

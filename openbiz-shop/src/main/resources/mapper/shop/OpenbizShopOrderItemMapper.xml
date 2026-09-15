@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openbiz.shop.mapper.OpenbizShopOrderItemMapper">
+    <resultMap id="OI" type="com.openbiz.shop.domain.OpenbizShopOrderItem">
+        <id property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="orderId" column="order_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="unitPrice" column="unit_price"/>
+        <result property="lineAmount" column="line_amount"/>
+    </resultMap>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO openbiz_shop_order_item
+        (tenant_id, order_id, product_id, quantity, unit_price, line_amount)
+        VALUES (#{tenantId}, #{orderId}, #{productId}, #{quantity}, #{unitPrice}, #{lineAmount})
+    </insert>
+    <select id="selectByOrderAndTenant" resultMap="OI">
+        SELECT id, tenant_id, order_id, product_id, quantity, unit_price, line_amount
+        FROM openbiz_shop_order_item
+        WHERE order_id = #{orderId} AND tenant_id = #{tenantId}
+    </select>
+</mapper>

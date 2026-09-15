@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openbiz.iot.core.mapper.OpenbizDeviceMapper">
+    <resultMap id="DeviceResult" type="com.openbiz.iot.core.domain.OpenbizDevice">
+        <id property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="deviceCode" column="device_code"/>
+        <result property="deviceName" column="device_name"/>
+        <result property="status" column="status"/>
+        <result property="onlineStatus" column="online_status"/>
+        <result property="lastOnlineTime" column="last_online_time"/>
+        <result property="lastOfflineTime" column="last_offline_time"/>
+        <result property="metadata" column="metadata"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO openbiz_device
+        (tenant_id, product_id, device_code, device_name, status, online_status, last_online_time, last_offline_time, metadata, create_time, update_time)
+        VALUES
+        (#{tenantId}, #{productId}, #{deviceCode}, #{deviceName}, #{status}, #{onlineStatus}, #{lastOnlineTime}, #{lastOfflineTime}, #{metadata}, #{createTime}, #{updateTime})
+    </insert>
+
+    <select id="selectByIdAndTenant" resultMap="DeviceResult">
+        SELECT id, tenant_id, product_id, device_code, device_name, status, online_status,
+               last_online_time, last_offline_time, metadata, create_time, update_time
+        FROM openbiz_device WHERE id = #{id} AND tenant_id = #{tenantId}
+    </select>
+
+    <select id="selectByTenant" resultMap="DeviceResult">
+        SELECT id, tenant_id, product_id, device_code, device_name, status, online_status,
+               last_online_time, last_offline_time, metadata, create_time, update_time
+        FROM openbiz_device WHERE tenant_id = #{tenantId} ORDER BY id ASC
+    </select>
+</mapper>

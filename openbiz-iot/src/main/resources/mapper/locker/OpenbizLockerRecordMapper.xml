@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openbiz.locker.mapper.OpenbizLockerRecordMapper">
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO openbiz_locker_record
+          (tenant_id, user_id, locker_id, slot_id, device_id, command_id, result, create_time)
+        VALUES
+          (#{tenantId}, #{userId}, #{lockerId}, #{slotId}, #{deviceId}, #{commandId}, #{result}, #{createTime})
+    </insert>
+
+</mapper>

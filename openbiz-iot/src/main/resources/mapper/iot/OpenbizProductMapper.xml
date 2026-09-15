@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openbiz.iot.core.mapper.OpenbizProductMapper">
+    <resultMap id="ProductResult" type="com.openbiz.iot.core.domain.OpenbizProduct">
+        <id property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="productCode" column="product_code"/>
+        <result property="productName" column="product_name"/>
+        <result property="protocol" column="protocol"/>
+        <result property="status" column="status"/>
+        <result property="description" column="description"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO openbiz_product (tenant_id, product_code, product_name, protocol, status, description, create_time, update_time)
+        VALUES (#{tenantId}, #{productCode}, #{productName}, #{protocol}, #{status}, #{description}, #{createTime}, #{updateTime})
+    </insert>
+
+    <select id="selectByIdAndTenant" resultMap="ProductResult">
+        SELECT id, tenant_id, product_code, product_name, protocol, status, description, create_time, update_time
+        FROM openbiz_product WHERE id = #{id} AND tenant_id = #{tenantId}
+    </select>
+
+    <select id="selectByTenant" resultMap="ProductResult">
+        SELECT id, tenant_id, product_code, product_name, protocol, status, description, create_time, update_time
+        FROM openbiz_product WHERE tenant_id = #{tenantId} ORDER BY id ASC
+    </select>
+</mapper>

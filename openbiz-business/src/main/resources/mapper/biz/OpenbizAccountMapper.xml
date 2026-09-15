@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openbiz.biz.mapper.OpenbizAccountMapper">
+    <resultMap id="A" type="com.openbiz.biz.domain.OpenbizAccount">
+        <id property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="customerId" column="customer_id"/>
+        <result property="balance" column="balance"/>
+        <result property="version" column="version"/>
+        <result property="status" column="status"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO openbiz_account (tenant_id, customer_id, balance, version, status, create_time, update_time)
+        VALUES (#{tenantId}, #{customerId}, #{balance}, #{version}, #{status}, #{createTime}, #{updateTime})
+    </insert>
+    <select id="selectByCustomerAndTenant" resultMap="A">
+        SELECT id, tenant_id, customer_id, balance, version, status, create_time, update_time
+        FROM openbiz_account WHERE customer_id = #{customerId} AND tenant_id = #{tenantId} LIMIT 1
+    </select>
+    <select id="selectByIdAndTenant" resultMap="A">
+        SELECT id, tenant_id, customer_id, balance, version, status, create_time, update_time
+        FROM openbiz_account WHERE id = #{id} AND tenant_id = #{tenantId} LIMIT 1
+    </select>
+    <update id="casUpdateBalance">
+        UPDATE openbiz_account
+        SET balance = #{newBalance}, version = version + 1, update_time = NOW()
+        WHERE id = #{id} AND tenant_id = #{tenantId} AND version = #{version}
+    </update>
+</mapper>

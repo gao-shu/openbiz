@@ -1,0 +1,5 @@
+source=https://gitee.com/y_project/RuoYi-Vue
+branch=springboot3
+version=3.9.2
+spring-boot=3.5.16
+imported=2026-09-14

@@ -1,0 +1,10 @@
+# Example only �� do not commit real API keys.
+# Copy values into environment variables or a local non-git profile.
+
+openbiz:
+  agent:
+    model:
+      base-url: ${OPENBIZ_AGENT_BASE_URL:}
+      api-key: ${OPENBIZ_AGENT_API_KEY:}
+      model: ${OPENBIZ_AGENT_MODEL:}
+      timeout-sec: 60

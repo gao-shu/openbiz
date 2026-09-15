@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openbiz.iot.core.mapper.OpenbizDeviceCommandMapper">
+    <resultMap id="CommandResult" type="com.openbiz.iot.core.domain.OpenbizDeviceCommand">
+        <id property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="deviceId" column="device_id"/>
+        <result property="commandId" column="command_id"/>
+        <result property="commandName" column="command_name"/>
+        <result property="payload" column="payload"/>
+        <result property="status" column="status"/>
+        <result property="requestTime" column="request_time"/>
+        <result property="responseTime" column="response_time"/>
+        <result property="errorMessage" column="error_message"/>
+        <result property="idempotentKey" column="idempotent_key"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO openbiz_device_command
+        (tenant_id, device_id, command_id, command_name, payload, status, request_time, response_time, error_message, idempotent_key, create_time)
+        VALUES
+        (#{tenantId}, #{deviceId}, #{commandId}, #{commandName}, #{payload}, #{status}, #{requestTime}, #{responseTime}, #{errorMessage}, #{idempotentKey}, #{createTime})
+    </insert>
+
+    <update id="updateStatus">
+        UPDATE openbiz_device_command
+        SET status = #{status},
+            response_time = #{responseTime},
+            error_message = #{errorMessage}
+        WHERE id = #{id} AND tenant_id = #{tenantId}
+    </update>
+
+    <select id="selectByIdAndTenant" resultMap="CommandResult">
+        SELECT id, tenant_id, device_id, command_id, command_name, payload, status,
+               request_time, response_time, error_message, idempotent_key, create_time
+        FROM openbiz_device_command WHERE id = #{id} AND tenant_id = #{tenantId}
+    </select>
+
+    <select id="selectByCommandIdAndTenant" resultMap="CommandResult">
+        SELECT id, tenant_id, device_id, command_id, command_name, payload, status,
+               request_time, response_time, error_message, idempotent_key, create_time
+        FROM openbiz_device_command WHERE command_id = #{commandId} AND tenant_id = #{tenantId}
+    </select>
+</mapper>

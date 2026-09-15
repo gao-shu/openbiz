@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openbiz.shop.mapper.OpenbizShopInventoryMapper">
+    <resultMap id="I" type="com.openbiz.shop.domain.OpenbizShopInventory">
+        <id property="id" column="id"/>
+        <result property="tenantId" column="tenant_id"/>
+        <result property="productId" column="product_id"/>
+        <result property="quantity" column="quantity"/>
+        <result property="version" column="version"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+    <insert id="insert" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO openbiz_shop_inventory
+        (tenant_id, product_id, quantity, version, update_time)
+        VALUES (#{tenantId}, #{productId}, #{quantity}, #{version}, #{updateTime})
+    </insert>
+    <select id="selectByProductAndTenant" resultMap="I">
+        SELECT id, tenant_id, product_id, quantity, version, update_time
+        FROM openbiz_shop_inventory
+        WHERE product_id = #{productId} AND tenant_id = #{tenantId}
+        LIMIT 1
+    </select>
+    <update id="setQuantity">
+        UPDATE openbiz_shop_inventory
+        SET quantity = #{quantity}, version = version + 1, update_time = NOW()
+        WHERE product_id = #{productId} AND tenant_id = #{tenantId} AND version = #{version}
+    </update>
+    <update id="casDeduct">
+        UPDATE openbiz_shop_inventory
+        SET quantity = quantity - #{qty}, version = version + 1, update_time = NOW()
+        WHERE product_id = #{productId}
+          AND tenant_id = #{tenantId}
+          AND version = #{version}
+          AND quantity &gt;= #{qty}
+    </update>
+</mapper>
