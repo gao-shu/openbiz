@@ -1,5 +1,11 @@
 # 路线图与 MVP 定义
 
+> **历史文档 / 已部分过时（Historical）**  
+> 本文保留 Phase 0～2 IoT MVP 串行记录，供追溯。  
+> **当前产品 Roadmap** 以仓库根目录 [README.md](../README.md) 的 V0.1 / V0.2 / V1.0 为准。  
+> **母域 Git 边界** 以 [architecture-decision-mother-boundary.md](architecture-decision-mother-boundary.md) 为准：`KEEP IN open-biz-platform`，不做为“架构好看”的物理拆仓。  
+> 下文若出现「独立仓库建议」或远期行业堆叠计划，视为历史讨论，**不作为现行承诺**。
+
 > Spec v0.1 · 严格串行 · 前一步未证明复用则不进入下一步
 
 ---
