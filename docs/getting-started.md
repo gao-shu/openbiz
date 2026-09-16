@@ -25,10 +25,10 @@ Goal: understand that OpenBiz capabilities can be consumed via **Maven artifacts
 Clone / open the mother repo [openbiz](https://github.com/gao-shu/openbiz), then:
 
 ```bash
-mvn -pl openbiz-service -am install -DskipTests
+mvn -pl openbiz-service,ruoyi-framework -am install -DskipTests
 ```
 
-Installs `com.openbiz:openbiz-service:3.9.2` into `~/.m2` (or your configured local repository).
+Installs `com.openbiz:openbiz-service:3.9.2` and `com.ruoyi:ruoyi-framework:3.9.2` (plus their reactor dependencies) into `~/.m2` (or your configured local repository). The Example needs `ruoyi-framework` for login/security/Redis; installing only `openbiz-service` is not enough.
 
 **Local Maven Artifact �� Maven Central.**
 
@@ -122,7 +122,7 @@ Success = you consumed mother **Service** capability from an independent process
 
 | Symptom | Check |
 | --- | --- |
-| Dependency `openbiz-service` not found | Re-run mother `mvn -pl openbiz-service -am install` |
+| Dependency `openbiz-service` / `ruoyi-framework` not found | Re-run mother `mvn -pl openbiz-service,ruoyi-framework -am install -DskipTests` |
 | Cannot connect MySQL | URL/DB name/password; schema imported |
 | Login / token errors | Redis up? Correct password? Captcha settings? |
 | Wrong port | Example is **18081**, mother admin often **18080** |

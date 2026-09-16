@@ -44,6 +44,12 @@ Verified lifecycle (Phase 3):
 
 ## How to run
 
+From the mother repo, install Local Maven artifacts (not Maven Central):
+
+```bash
+mvn -pl openbiz-service,ruoyi-framework -am install -DskipTests
+```
+
 Follow **[Getting Started](../getting-started.md)** or the Example��s own [README](https://github.com/gao-shu/openbiz-workorder-demo/blob/master/README.md).
 
 ---
