@@ -1,5 +1,6 @@
 package com.openbiz.service.api;
 
+import java.util.List;
 import com.openbiz.service.domain.OpenbizWorkOrder;
 
 /**
@@ -18,4 +19,6 @@ public interface WorkOrderService
     OpenbizWorkOrder cancel(Long workOrderId);
 
     OpenbizWorkOrder get(Long workOrderId);
+
+    List<OpenbizWorkOrder> list();
 }

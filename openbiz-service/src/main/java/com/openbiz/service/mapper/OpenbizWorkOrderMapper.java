@@ -1,5 +1,6 @@
 package com.openbiz.service.mapper;
 
+import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import com.openbiz.service.domain.OpenbizWorkOrder;
 
@@ -8,6 +9,8 @@ public interface OpenbizWorkOrderMapper
     int insert(OpenbizWorkOrder row);
 
     OpenbizWorkOrder selectByIdAndTenant(@Param("id") Long id, @Param("tenantId") Long tenantId);
+
+    List<OpenbizWorkOrder> selectByTenant(@Param("tenantId") Long tenantId);
 
     OpenbizWorkOrder selectByIdempotent(@Param("tenantId") Long tenantId, @Param("idempotentKey") String idempotentKey);
 

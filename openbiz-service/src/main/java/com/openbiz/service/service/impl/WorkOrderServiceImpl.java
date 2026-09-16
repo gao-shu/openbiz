@@ -1,6 +1,7 @@
 package com.openbiz.service.service.impl;
 
 import java.util.Date;
+import java.util.List;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -157,6 +158,14 @@ public class WorkOrderServiceImpl implements WorkOrderService
         Long tenantId = ServiceTenantGuard.requireTenantId();
         currentUserPort.requireUserId();
         return requireOwned(workOrderId, tenantId);
+    }
+
+    @Override
+    public List<OpenbizWorkOrder> list()
+    {
+        Long tenantId = ServiceTenantGuard.requireTenantId();
+        currentUserPort.requireUserId();
+        return workOrderMapper.selectByTenant(tenantId);
     }
 
     private OpenbizWorkOrder requireOwned(Long workOrderId, Long tenantId)

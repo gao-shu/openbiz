@@ -33,6 +33,14 @@
         LIMIT 1
     </select>
 
+    <select id="selectByTenant" resultMap="WO">
+        SELECT id, tenant_id, title, content, contact_name, contact_phone, status,
+               assignee_user_id, complete_note, idempotent_key, create_time, update_time
+        FROM openbiz_work_order
+        WHERE tenant_id = #{tenantId}
+        ORDER BY id ASC
+    </select>
+
     <select id="selectByIdempotent" resultMap="WO">
         SELECT id, tenant_id, title, content, contact_name, contact_phone, status,
                assignee_user_id, complete_note, idempotent_key, create_time, update_time

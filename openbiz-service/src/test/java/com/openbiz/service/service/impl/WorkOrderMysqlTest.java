@@ -5,6 +5,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.junit.jupiter.api.AfterEach;
@@ -118,6 +119,30 @@ class WorkOrderMysqlTest
         OpenbizWorkOrder wo = workOrderService.create("X", "c", "N", "13800000004", key);
         ServiceException ex = assertThrows(ServiceException.class, () -> workOrderService.complete(wo.getId(), "no"));
         assertTrue(ex.getMessage().contains("ILLEGAL_TRANSITION"));
+    }
+
+    @Test
+    void list_onlyCurrentTenant()
+    {
+        String keyA = "list-a-" + System.nanoTime();
+        OpenbizWorkOrder a = workOrderService.create("TenantA", "c", "N", "13800000005", keyA);
+
+        TenantContext.setTenantId(2L);
+        Cfg.CURRENT.set(300L);
+        String keyB = "list-b-" + System.nanoTime();
+        OpenbizWorkOrder b = workOrderService.create("TenantB", "c", "N", "13800000006", keyB);
+
+        List<OpenbizWorkOrder> tenant2 = workOrderService.list();
+        assertTrue(tenant2.stream().anyMatch(wo -> wo.getId().equals(b.getId())));
+        assertTrue(tenant2.stream().noneMatch(wo -> wo.getId().equals(a.getId())));
+        assertTrue(tenant2.stream().allMatch(wo -> Long.valueOf(2L).equals(wo.getTenantId())));
+
+        TenantContext.setTenantId(1L);
+        Cfg.CURRENT.set(100L);
+        List<OpenbizWorkOrder> tenant1 = workOrderService.list();
+        assertTrue(tenant1.stream().anyMatch(wo -> wo.getId().equals(a.getId())));
+        assertTrue(tenant1.stream().noneMatch(wo -> wo.getId().equals(b.getId())));
+        assertTrue(tenant1.stream().allMatch(wo -> Long.valueOf(1L).equals(wo.getTenantId())));
     }
 
     @Configuration

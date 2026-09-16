@@ -9,6 +9,8 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import java.util.Collections;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -146,6 +148,34 @@ class WorkOrderServiceImplTest
         when(workOrderMapper.selectByIdAndTenant(1L, 1L))
                 .thenReturn(sample(1L, WorkOrderStatus.ACCEPTED, 200L));
         assertThrows(ServiceException.class, () -> workOrderService.cancel(1L));
+    }
+
+    @Test
+    void list_usesCurrentTenant()
+    {
+        when(workOrderMapper.selectByTenant(1L)).thenReturn(List.of(sample(1L, WorkOrderStatus.CREATED, null)));
+        List<OpenbizWorkOrder> rows = workOrderService.list();
+        assertEquals(1, rows.size());
+        assertEquals(1L, rows.get(0).getTenantId());
+        verify(workOrderMapper).selectByTenant(1L);
+    }
+
+    @Test
+    void list_noTenant_rejected()
+    {
+        TenantContext.clear();
+        org.mockito.Mockito.clearInvocations(currentUserPort);
+        org.mockito.Mockito.reset(currentUserPort);
+        ServiceException ex = assertThrows(ServiceException.class, () -> workOrderService.list());
+        assertTrue(ex.getMessage().contains("NO_TENANT_CONTEXT"));
+        verify(workOrderMapper, never()).selectByTenant(any());
+    }
+
+    @Test
+    void list_emptyWhenNone()
+    {
+        when(workOrderMapper.selectByTenant(1L)).thenReturn(Collections.emptyList());
+        assertTrue(workOrderService.list().isEmpty());
     }
 
     private static OpenbizWorkOrder sample(Long id, WorkOrderStatus status, Long assignee)
