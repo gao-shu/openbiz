@@ -1,0 +1,46 @@
+OpenBiz (open-biz-platform / openbiz)
+=====================================
+
+OpenBiz own code
+----------------
+OpenBiz own code in this repository - including the capability modules
+openbiz-foundation, openbiz-saas-core, openbiz-iot, openbiz-business,
+openbiz-service, openbiz-agent, and openbiz-shop, together with related
+OpenBiz documentation - is maintained and published by gao-shu and is
+intended for use under the license terms in the LICENSE file distributed
+with this project.
+
+Copyright (c) 2026 gao-shu.
+
+This does not claim that every file in the repository was originally
+authored by gao-shu.
+
+RuoYi upstream (thin shell)
+---------------------------
+Parts of this repository provide a thin runtime / auth / configuration /
+admin-demo shell, including modules under ruoyi-*. Those parts originate
+from or follow RuoYi-Vue patterns.
+
+RuoYi-Vue is licensed under the MIT License.
+Upstream: https://gitee.com/y_project/RuoYi-Vue
+
+See also RUOYI_UPSTREAM.txt for the imported upstream version record.
+
+Boundary
+--------
+The openbiz-* business capability modules are the focus of this project
+and are intended for independent Maven consumption.
+
+RuoYi-related modules are retained mainly as the current runtime /
+auth / configuration shell for demos and hosting - not as the product
+identity of OpenBiz. OpenBiz is not positioned as a RuoYi replacement.
+
+The root LICENSE file remains as distributed with this repository and
+includes upstream copyright attribution. This NOTICE supplements
+attribution; it does not rewrite the LICENSE.
+
+Dependencies
+------------
+Third-party libraries and upstream artifacts remain under their own
+respective licenses and copyright notices as distributed with those
+packages.
