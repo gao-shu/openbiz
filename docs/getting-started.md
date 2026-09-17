@@ -4,7 +4,7 @@
 
 Goal: understand that OpenBiz capabilities can be consumed via **Maven artifacts** in a separate project.
 
-> **5�C10 minutes** only means: JDK 21, Maven, MySQL, and Redis are **already** installed and running.
+> **5–10 minutes** only means: JDK 21, Maven, MySQL, and Redis are **already** installed and running.
 
 ---
 
@@ -30,7 +30,7 @@ mvn -pl openbiz-service,ruoyi-framework -am install -DskipTests
 
 Installs `com.openbiz:openbiz-service:3.9.2` and `com.ruoyi:ruoyi-framework:3.9.2` (plus their reactor dependencies) into `~/.m2` (or your configured local repository). The Example needs `ruoyi-framework` for login/security/Redis; installing only `openbiz-service` is not enough.
 
-**Local Maven Artifact �� Maven Central.**
+**Local Maven Artifact ≠ Maven Central.**
 
 ---
 
@@ -49,9 +49,9 @@ Example README: [openbiz-workorder-demo/README.md](https://github.com/gao-shu/op
 
 Import from mother `sql/` (adjust filenames to what exists in your checkout):
 
-1. RuoYi base script (`ry_*.sql`)
-2. `openbiz_saas_*.sql` (tenant / member)
-3. `openbiz_service_*.sql` (work order tables)
+1. RuoYi base script (`ry_20260417.sql`)
+2. `openbiz_saas_1_2.sql` (tenant / member)
+3. `openbiz_service_1.sql` (work order tables)
 
 You do **not** need Access / Locker / Charging / MES / Shop scripts for this first run.
 

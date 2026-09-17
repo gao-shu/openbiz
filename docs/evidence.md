@@ -10,10 +10,10 @@ Evidence levels used across OpenBiz docs:
 | **L3** | Real MySQL and/or real HTTP (may be mother process or independent process��say which) |
 | **L4** | Real external production / real devices |
 
-**Code exists �� verified.**  
-**Unit/Mock �� Real MySQL.**  
-**Real MySQL �� production.**  
-**Independent consumer �� SDK productization.**
+**Code exists ≠ verified.**  
+**Unit/Mock ≠ Real MySQL.**  
+**Real MySQL ≠ production.**  
+**Independent consumer ≠ SDK productization.**
 
 ---
 
@@ -34,10 +34,10 @@ Evidence levels used across OpenBiz docs:
 
 | Tempting claim | Actual |
 | --- | --- |
-| ��Published on Maven Central�� | **Local** `mvn install` �� `~/.m2` only |
+| ��Published on Maven Central�� | **Local** `mvn install` → `~/.m2` only |
 | ��Production-ready platform�� | Demo/local configs, sample secrets |
 | ��Supports real MQTT devices�� | MQTT adapter is a **stub**; commands use **Mock** protocol in validated paths |
-| ��Full AI Agent platform�� | Prompt �� single model invoke; `ToolPort` not a product |
+| ��Full AI Agent platform�� | Prompt → single model invoke; `ToolPort` not a product |
 | ��Every domain is independently released�� | Domains **KEEP IN** one Git monorepo; Service has one external Example consumer |
 
 ---
@@ -48,9 +48,9 @@ Proven chain:
 
 ```text
 openbiz-service:3.9.2
-  �� openbiz-workorder-demo
-  �� :18081
-  �� HTTP + MySQL WorkOrder lifecycle + tenant isolation
+  ↓ openbiz-workorder-demo
+  ↓ :18081
+  ↓ HTTP + MySQL WorkOrder lifecycle + tenant isolation
 ```
 
 See [examples/workorder-demo.md](examples/workorder-demo.md).

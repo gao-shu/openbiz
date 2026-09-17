@@ -17,7 +17,7 @@
 Mother openbiz-service
   �� mvn install (local artifact)
   �� demo pom dependency (no source copy, no submodule, no relativePath to mother sources)
-  �� WorkOrderController �� WorkOrderService
+  �� WorkOrderController → WorkOrderService
   �� ServiceTenantGuard / transitions / mapper inside the artifact
   �� MySQL
 ```
@@ -27,7 +27,7 @@ Verified lifecycle (Phase 3):
 - List / Get / Create
 - Create idempotency (same tenant + idempotentKey)
 - Assign / Accept / Complete
-- Cancel (CREATED / ASSIGNED �� CANCELLED; COMPLETED �� reject)
+- Cancel (CREATED / ASSIGNED → CANCELLED; COMPLETED → reject)
 - Cross-tenant isolation
 
 ---
